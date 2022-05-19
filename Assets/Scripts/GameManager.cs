@@ -21,26 +21,36 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameIsActive = true;
         InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (playerController.gameOver)
-        {
-            gameOverText.gameObject.SetActive(true);
-        }
+        GameOver();
     }
 
     // Method for enemies spawn
     void SpawnRandomEnemy()
     {
-        float randomX = Random.Range(-xSpawnRange, xSpawnRange);
-        int randomIndex = Random.Range(0, enemies.Length);
+        if (gameIsActive)
+        {
+            float randomX = Random.Range(-xSpawnRange, xSpawnRange);
+            int randomIndex = Random.Range(0, enemies.Length);
 
-        Vector3 spawnPos = new Vector3(randomX, ySpawn, zEnemySpawn);
+            Vector3 spawnPos = new Vector3(randomX, ySpawn, zEnemySpawn);
 
-        Instantiate(enemies[randomIndex], spawnPos, enemies[randomIndex].gameObject.transform.rotation);
+            Instantiate(enemies[randomIndex], spawnPos, enemies[randomIndex].gameObject.transform.rotation);
+        }
+    }
+
+    void GameOver()
+    {
+        if (playerController.gameOver)
+        {
+            gameOverText.gameObject.SetActive(true);
+            gameIsActive = false;
+        }
     }
 }
