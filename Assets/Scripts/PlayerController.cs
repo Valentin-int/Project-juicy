@@ -31,11 +31,8 @@ public class PlayerController : MonoBehaviour
 
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -xRange, xRange), transform.position.y, transform.position.z);
-
-        if (life <= 0)
-        {
-            Destroy(gameObject);
-        }
+        OutOfBound();
+        Death();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,5 +66,21 @@ public class PlayerController : MonoBehaviour
         touchable = false;
         outOfBound++;
         StartCoroutine(InvincibilityAfterCollision());
+    }
+
+    void Death()
+    {
+        if (life <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    void OutOfBound()
+    {
+        if(outOfBound >= 3)
+        {
+            Destroy(gameObject);
+        }
     }
 }
