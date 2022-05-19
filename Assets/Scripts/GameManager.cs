@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemies;
     public float xSpawnRange = 6.5f;
     public TextMeshProUGUI gameOverText;
+    public Button restartButton;
 
     public PlayerController playerController;
 
@@ -45,10 +48,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     void GameOver()
     {
         if (playerController.gameOver)
         {
+            restartButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
         }
