@@ -158,7 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   horizontalInput: 0
-  life: 3
+  life: 20
+  backAfterCollision: 60
   enemyController: {fileID: 9205013528125466089, guid: 952c0788c642d2b4bb66866129a7afdd, type: 3}
   enemyController1: {fileID: 7513750660156342118, guid: e4e499a39ad28704c82781853f4e8140, type: 3}
   enemyController2: {fileID: 4742966784261209213, guid: 2bb90573437372c4fb946509751e95d9, type: 3}
@@ -233,7 +234,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44254388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.99, z: -9.54}
+  m_LocalPosition: {x: 0, y: 0.99, z: -7.96}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

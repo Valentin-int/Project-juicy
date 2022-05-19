@@ -8,17 +8,20 @@ public class PlayerController : MonoBehaviour
     public float speed = 10;
     public float horizontalInput;
     public float life = 3;
+    public float backAfterCollision;
 
     public EnemyController enemyController;
     public EnemyController enemyController1;
     public EnemyController enemyController2;
 
     private float xRange = 7;
+    private bool touchable = true;
+    private int outOfBound;
 
     // Start is called before the first frame update
     void Start()
     {
-        enemyController = GameObject.Find("Enemy").GetComponent<EnemyController>();
+
     }
 
     // Update is called once per frame
@@ -37,18 +40,34 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("hello");
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && touchable == true)
         {
             life -= enemyController.damage;
+            EnemiesAttack();
         }
-        if (other.gameObject.CompareTag("Enemy 1"))
+        if (other.gameObject.CompareTag("Enemy 1") && touchable == true)
         {
             life -= enemyController1.damage;
+            EnemiesAttack();
         }
-        if (other.gameObject.CompareTag("Enemy 2"))
+        if (other.gameObject.CompareTag("Enemy 2") && touchable == true)
         {
             life -= enemyController2.damage;
+            EnemiesAttack();
         }
+    }
+
+    IEnumerator InvincibilityAfterCollision()
+    {
+        yield return new WaitForSeconds(1);
+        touchable = true;
+    }
+
+    void EnemiesAttack()
+    {
+        transform.Translate(Vector3.back * Time.deltaTime * backAfterCollision);
+        touchable = false;
+        outOfBound++;
+        StartCoroutine(InvincibilityAfterCollision());
     }
 }
