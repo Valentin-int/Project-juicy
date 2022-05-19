@@ -1,17 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class SpawnManager : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     // Variable of class
     public GameObject[] enemies;
     public float xSpawnRange = 6.5f;
+    public TextMeshProUGUI gameOverText;
 
     private float ySpawn = 0.77f;
     private float zEnemySpawn = 24;
     private float startDelay = 1;
     private float enemySpawnTime = 1;
+    private bool gameIsActive;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +25,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     // Method for enemies spawn
