@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public float horizontalInput;
     public float life = 3;
     public float backAfterCollision;
+    public bool gameOver;
 
     public EnemyController enemyController;
     public EnemyController enemyController1;
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour
         if (life <= 0)
         {
             Destroy(gameObject);
+            gameOver = true;
         }
     }
 
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviour
         if(outOfBound >= 3)
         {
             Destroy(gameObject);
+            gameOver = true;
         }
     }
 }

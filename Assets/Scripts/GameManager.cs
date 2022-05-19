@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public float xSpawnRange = 6.5f;
     public TextMeshProUGUI gameOverText;
 
+    public PlayerController playerController;
+
     private float ySpawn = 0.77f;
     private float zEnemySpawn = 24;
     private float startDelay = 1;
@@ -25,7 +27,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (playerController.gameOver)
+        {
+            gameOverText.gameObject.SetActive(true);
+        }
     }
 
     // Method for enemies spawn

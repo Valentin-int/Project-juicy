@@ -291,6 +291,7 @@ MonoBehaviour:
   - {fileID: 1144414939914697576, guid: 2bb90573437372c4fb946509751e95d9, type: 3}
   xSpawnRange: 6.5
   gameOverText: {fileID: 1984058099}
+  playerController: {fileID: 44254389}
 --- !u!4 &584317680
 Transform:
   m_ObjectHideFlags: 0
