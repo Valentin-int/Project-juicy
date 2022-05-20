@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemies;
     public float xSpawnRange = 6.5f;
     public TextMeshProUGUI gameOverText;
+    public TextMeshProUGUI scoreText;
     public Button restartButton;
 
     public PlayerController playerController;
@@ -20,6 +21,7 @@ public class GameManager : MonoBehaviour
     private float startDelay = 1;
     private float enemySpawnTime = 1;
     private bool gameIsActive;
+    private int score;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +33,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Time.time);
+        UpdatedScore();
         GameOver();
     }
 
@@ -60,6 +64,15 @@ public class GameManager : MonoBehaviour
             restartButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
+        }
+    }
+
+    public void UpdatedScore()
+    {
+        if (gameIsActive)
+        {
+            score += Mathf.FloorToInt(Time.timeSinceLevelLoad);
+            scoreText.text = "Score: " + (score / 300);
         }
     }
 }
