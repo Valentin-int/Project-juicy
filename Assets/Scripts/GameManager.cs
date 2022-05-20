@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreText;
     public Button restartButton;
+    public int moreScore = 50;
 
     public PlayerController playerController;
 
@@ -22,6 +23,17 @@ public class GameManager : MonoBehaviour
     private float enemySpawnTime = 1;
     private bool gameIsActive;
     private int score;
+
+    // Variable for timer score
+    private int time;
+    public float scoreTimerInterval = 5f;
+    private float tick;
+
+    private void Awake()
+    {
+        time = (int)Time.timeSinceLevelLoad;
+        tick = scoreTimerInterval;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +45,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Time.time);
+        time = (int)Time.timeSinceLevelLoad;
         UpdatedScore();
         GameOver();
     }
@@ -69,10 +81,11 @@ public class GameManager : MonoBehaviour
 
     public void UpdatedScore()
     {
-        if (gameIsActive)
+        if (time == tick && gameIsActive)
         {
-            score += Mathf.FloorToInt(Time.timeSinceLevelLoad);
-            scoreText.text = "Score: " + (score / 300);
+            tick = time + scoreTimerInterval;
+            score += moreScore;
+            scoreText.text = "Score: " + score;
         }
     }
 }
