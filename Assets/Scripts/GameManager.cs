@@ -27,13 +27,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         gameIsActive = true;
-        UpdatedScore(0);
         InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Time.time);
+        UpdatedScore();
         GameOver();
     }
 
@@ -66,9 +67,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void UpdatedScore(int scoreToAdd)
+    public void UpdatedScore()
     {
-        score += scoreToAdd;
-        scoreText.text = "Score: " + Time.deltaTime;
+        if (gameIsActive)
+        {
+            score += Mathf.FloorToInt(Time.timeSinceLevelLoad);
+            scoreText.text = "Score: " + (score / 300);
+        }
     }
 }

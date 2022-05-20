@@ -426,6 +426,7 @@ MonoBehaviour:
   - {fileID: 1144414939914697576, guid: 2bb90573437372c4fb946509751e95d9, type: 3}
   xSpawnRange: 6.5
   gameOverText: {fileID: 1984058099}
+  scoreText: {fileID: 904113403}
   restartButton: {fileID: 1511025581}
   playerController: {fileID: 44254389}
 --- !u!4 &584317680
@@ -655,7 +656,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -283.08826, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
