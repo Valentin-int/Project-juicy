@@ -41,8 +41,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameIsActive = true;
-        InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
+
     }
 
     // Update is called once per frame
@@ -77,7 +76,7 @@ public class GameManager : MonoBehaviour
         if (playerController.gameOver)
         {
             restartButton.gameObject.SetActive(true);
-            /*mainMenuButton.gameObject.SetActive(true);*/
+            mainMenuButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
         }
@@ -93,7 +92,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-/*    public void StartGame()
+    public void StartGame()
     {
         gameIsActive = true;
         InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
@@ -101,9 +100,5 @@ public class GameManager : MonoBehaviour
         mainMenu.gameObject.SetActive(false);
         gameScene.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(true);
-
-        time = (int)Time.timeSinceLevelLoad;
-        UpdatedScore();
-        GameOver();
-    }*/
+    }
 }
