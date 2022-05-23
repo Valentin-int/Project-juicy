@@ -9,9 +9,12 @@ public class GameManager : MonoBehaviour
 {
     // Variable of class
     public GameObject[] enemies;
+    public GameObject mainMenu;
+    public GameObject gameScene;
     public float xSpawnRange = 6.5f;
     public TextMeshProUGUI gameOverText;
     public TextMeshProUGUI scoreText;
+    public Button mainMenuButton;
     public Button restartButton;
     public int moreScore = 50;
 
@@ -74,6 +77,7 @@ public class GameManager : MonoBehaviour
         if (playerController.gameOver)
         {
             restartButton.gameObject.SetActive(true);
+            /*mainMenuButton.gameObject.SetActive(true);*/
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
         }
@@ -88,4 +92,18 @@ public class GameManager : MonoBehaviour
             scoreText.text = "Score: " + score;
         }
     }
+
+/*    public void StartGame()
+    {
+        gameIsActive = true;
+        InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
+
+        mainMenu.gameObject.SetActive(false);
+        gameScene.gameObject.SetActive(true);
+        scoreText.gameObject.SetActive(true);
+
+        time = (int)Time.timeSinceLevelLoad;
+        UpdatedScore();
+        GameOver();
+    }*/
 }
