@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     // Variable of class
     public GameObject[] enemies;
+    public GameObject player;
     public GameObject mainMenu;
     public GameObject gameScene;
     public float xSpawnRange = 6.5f;
@@ -20,12 +21,14 @@ public class GameManager : MonoBehaviour
 
     public PlayerController playerController;
 
+    private float xSpawn = 0;
     private float ySpawn = 0.77f;
+    private float zSpawn = -7.96f;
     private float zEnemySpawn = 24;
     private float startDelay = 1;
     private float enemySpawnTime = 1;
     private bool gameIsActive;
-    private int score;
+    private int score = 0;
 
     // Variable for timer score
     private int time;
@@ -68,10 +71,23 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        playerController.gameOver = false;
+        gameIsActive = true;
+        score = 0;
+        restartButton.gameObject.SetActive(false);
+        mainMenuButton.gameObject.SetActive(false);
+        gameOverText.gameObject.SetActive(false);
+        player.gameObject.SetActive(true);
+        player.transform.position = new Vector3(xSpawn, ySpawn, zSpawn);
+        resetScore();
+    }
+
+    public void MainMenu()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    void GameOver()
+    public void GameOver()
     {
         if (playerController.gameOver)
         {
@@ -88,17 +104,23 @@ public class GameManager : MonoBehaviour
         {
             tick = time + scoreTimerInterval;
             score += moreScore;
-            scoreText.text = "Score: " + score;
+            resetScore();
         }
     }
 
     public void StartGame()
     {
         gameIsActive = true;
+        resetScore();
         InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
 
         mainMenu.gameObject.SetActive(false);
         gameScene.gameObject.SetActive(true);
         scoreText.gameObject.SetActive(true);
+    }
+
+    void resetScore()
+    {
+        scoreText.text = "Score: " + score;
     }
 }

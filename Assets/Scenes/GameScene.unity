@@ -279,12 +279,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   horizontalInput: 0
-  life: 20
   backAfterCollision: 60
   gameOver: 0
-  enemyController: {fileID: 9205013528125466089, guid: 952c0788c642d2b4bb66866129a7afdd, type: 3}
-  enemyController1: {fileID: 7513750660156342118, guid: e4e499a39ad28704c82781853f4e8140, type: 3}
-  enemyController2: {fileID: 4742966784261209213, guid: 2bb90573437372c4fb946509751e95d9, type: 3}
+  gameManager: {fileID: 584317679}
+  outOfBound: 0
 --- !u!136 &44254390
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -745,6 +743,7 @@ MonoBehaviour:
   - {fileID: 9205013528125466090, guid: 952c0788c642d2b4bb66866129a7afdd, type: 3}
   - {fileID: 2771283943522564211, guid: e4e499a39ad28704c82781853f4e8140, type: 3}
   - {fileID: 1144414939914697576, guid: 2bb90573437372c4fb946509751e95d9, type: 3}
+  player: {fileID: 44254388}
   mainMenu: {fileID: 1866587845}
   gameScene: {fileID: 1234361124}
   xSpawnRange: 6.5
@@ -919,7 +918,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score:'
+  m_text: 'Score: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1948,7 +1947,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1890103553}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 584317679}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: MainMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1890103553
 MonoBehaviour:
   m_ObjectHideFlags: 0
