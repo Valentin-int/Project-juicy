@@ -6,25 +6,33 @@ public class PlayerController : MonoBehaviour
 {
     // Variable of class
     public float speed = 10;
+    public float jumpForce;
     public float horizontalInput;
     public float backAfterCollision;
     public bool gameOver;
 
     public GameManager gameManager;
 
+    private Rigidbody playerRb;
     private float xRange = 7;
     private bool touchable = true;
+    public bool isOnGround = true;
     public int outOfBound;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerRb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
+        }
         horizontalInput = Input.GetAxis("Horizontal");
 
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
@@ -37,6 +45,14 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && touchable == true)
         {
             EnemiesAttack();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
         }
     }
 

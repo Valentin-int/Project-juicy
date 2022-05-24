@@ -278,10 +278,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  jumpForce: 7
   horizontalInput: 0
   backAfterCollision: 60
   gameOver: 0
   gameManager: {fileID: 584317679}
+  isOnGround: 1
   outOfBound: 0
 --- !u!136 &44254390
 CapsuleCollider:
@@ -291,7 +293,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44254388}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -354,7 +356,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44254388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -683.1795, y: -245.83507, z: -54.118572}
+  m_LocalPosition: {x: -683.1795, y: -245.81, z: -54.118572}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1234361125}
@@ -371,10 +373,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!1 &125842167
 GameObject:
@@ -740,8 +742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 9205013528125466090, guid: 952c0788c642d2b4bb66866129a7afdd, type: 3}
-  - {fileID: 2771283943522564211, guid: e4e499a39ad28704c82781853f4e8140, type: 3}
+  - {fileID: 4904843741915036529, guid: 42af6dc53f239aa428977f8c671f5ac5, type: 3}
   - {fileID: 1144414939914697576, guid: 2bb90573437372c4fb946509751e95d9, type: 3}
   player: {fileID: 44254388}
   mainMenu: {fileID: 1866587845}
@@ -1122,9 +1123,10 @@ GameObject:
   - component: {fileID: 1473221235}
   - component: {fileID: 1473221234}
   - component: {fileID: 1473221233}
+  - component: {fileID: 1473221237}
   m_Layer: 0
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1206,6 +1208,22 @@ Transform:
   m_Father: {fileID: 1234361125}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1473221237
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473221232}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1511025579
 GameObject:
   m_ObjectHideFlags: 0
