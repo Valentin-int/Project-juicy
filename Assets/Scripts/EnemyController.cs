@@ -6,8 +6,6 @@ public class EnemyController : MonoBehaviour
 {
     // Variable of class
     public float speed = 10;
-    public float life;
-    public float damage;
 
     // Start is called before the first frame update
     void Start()
