@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     public Button mainMenuButton;
     public Button restartButton;
     public int moreScore = 50;
+    public int score = 0;
 
     public PlayerController playerController;
 
@@ -28,7 +29,6 @@ public class GameManager : MonoBehaviour
     private float startDelay = 1;
     private float enemySpawnTime = 1;
     private bool gameIsActive;
-    private int score = 0;
 
     // Variable for timer score
     private int time;
@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
         time = (int)Time.timeSinceLevelLoad;
         UpdatedScore();
         GameOver();
+        scoreText.text = "Score: " + score;
     }
 
     // Method for enemies spawn
