@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public GameManager gameManager;
 
     private Rigidbody playerRb;
+    private CapsuleCollider playerCollider;
+    private Vector3 scaleChange = new Vector3(0.5f, 1, 1);
     private float xRange = 7;
     private bool touchable = true;
     public bool isOnGround = true;
@@ -32,6 +34,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
+            transform.localScale = scaleChange;
         }
         horizontalInput = Input.GetAxis("Horizontal");
 
