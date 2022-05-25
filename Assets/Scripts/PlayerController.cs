@@ -17,10 +17,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private SphereCollider playerCollider;
 
-    private Vector3 scaleChange = new Vector3(0.5f, 1, 1);
-    private float colliderScale = 0.25f;
+    private Vector3 scaleMin = new Vector3(0.5f, 1, 1);
+    private Vector3 scaleMax = new Vector3(1.5f, 1.5f, 1.5f);
+    private float colliderScaleMin = 0.25f;
+    private float colliderScaleMax = 0.5f;
     private float xRange = 7;
-    private bool touchable = true;
+    public bool touchable = true;
     public bool isOnGround = true;
     public int outOfBound;
 
@@ -48,6 +50,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && touchable == true)
         {
             EnemiesAttack();
+        }
+
+        if (other.gameObject.CompareTag("BonusZone"))
+        {
+            BonusScore();
         }
     }
 
@@ -98,8 +105,19 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow) && !gameOver)
         {
-            transform.localScale = scaleChange;
-            playerCollider.radius = colliderScale;
+            transform.localScale = scaleMin;
+            playerCollider.radius = colliderScaleMin;
         }
+
+        if (Input.GetKeyUp(KeyCode.DownArrow) && !gameOver)
+        {
+            transform.localScale = scaleMax;
+            playerCollider.radius = colliderScaleMax;
+        }
+    }
+
+    void BonusScore()
+    {
+        gameManager.score += gameManager.moreScore;
     }
 }
