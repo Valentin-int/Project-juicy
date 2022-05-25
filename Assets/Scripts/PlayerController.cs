@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,8 +15,10 @@ public class PlayerController : MonoBehaviour
     public GameManager gameManager;
 
     private Rigidbody playerRb;
-    private CapsuleCollider playerCollider;
+    private SphereCollider playerCollider;
+
     private Vector3 scaleChange = new Vector3(0.5f, 1, 1);
+    private float colliderScale = 0.25f;
     private float xRange = 7;
     private bool touchable = true;
     public bool isOnGround = true;
@@ -25,17 +28,14 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<SphereCollider>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
-        {
-            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isOnGround = false;
-            transform.localScale = scaleChange;
-        }
+        Jump();
+        SlimDown();
         horizontalInput = Input.GetAxis("Horizontal");
 
         transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
@@ -82,6 +82,24 @@ public class PlayerController : MonoBehaviour
             touchable = true;
             gameOver = true;
             gameManager.GameOver();
+        }
+    }
+
+    void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
+        {
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
+        }
+    }
+
+    void SlimDown()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && !gameOver)
+        {
+            transform.localScale = scaleChange;
+            playerCollider.radius = colliderScale;
         }
     }
 }
