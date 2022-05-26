@@ -35,6 +35,11 @@ public class GameManager : MonoBehaviour
     public float scoreTimerInterval = 5f;
     private float tick;
 
+    public TextMeshProUGUI highScoreText;
+    private string scoreKey = "Score";
+    private int highScore = 0;
+    private int[] scoreTab = new int[5];
+
     private void Awake()
     {
         time = (int)Time.timeSinceLevelLoad;
@@ -44,7 +49,12 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        for (int i = 0; i < scoreTab.Length; i++)
+        {
+            scoreKey = "Score" + 5/*(i + 1).ToString()*/;
+            highScore = PlayerPrefs.GetInt(scoreKey, 0);
+            highScoreText.text = (i + 1).ToString() + ": " + highScore;
+        }
     }
 
     // Update is called once per frame
@@ -96,6 +106,10 @@ public class GameManager : MonoBehaviour
             mainMenuButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
+            if (score > highScore)
+            {
+                PlayerPrefs.SetInt(scoreKey, score);
+            }
         }
     }
 
