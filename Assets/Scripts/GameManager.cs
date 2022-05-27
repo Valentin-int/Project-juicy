@@ -49,12 +49,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < scoreTab.Length; i++)
-        {
-            scoreKey = "Score" + 5/*(i + 1).ToString()*/;
-            highScore = PlayerPrefs.GetInt(scoreKey, 0);
-            highScoreText.text = (i + 1).ToString() + ": " + highScore;
-        }
+        ShowSave();
     }
 
     // Update is called once per frame
@@ -106,10 +101,7 @@ public class GameManager : MonoBehaviour
             mainMenuButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
-            if (score > highScore)
-            {
-                PlayerPrefs.SetInt(scoreKey, score);
-            }
+            SaveScores();
         }
     }
 
@@ -137,5 +129,32 @@ public class GameManager : MonoBehaviour
     void resetScore()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    void SaveScores()
+    {
+        for (int i = 0; i < scoreTab.Length; i++)
+        {
+            if (score > scoreTab[i])
+            {
+                scoreKey = "Score" + (i + 1).ToString();
+                PlayerPrefs.SetInt(scoreKey, score);
+                break;
+            }
+        }
+    }
+
+    void ShowSave()
+    {
+        for (int i = 0; i < scoreTab.Length; i++)
+        {
+            scoreKey = "Score" + (i + 1).ToString();
+            highScore = PlayerPrefs.GetInt(scoreKey, 0);
+            scoreTab[i] = highScore;
+            if (highScore > 0)
+            {
+                highScoreText.text = highScoreText.text + (i + 1).ToString() + ": " + highScore;
+            }
+        }
     }
 }
