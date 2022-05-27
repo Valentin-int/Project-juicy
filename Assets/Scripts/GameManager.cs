@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] enemies;
     public GameObject player;
     public GameObject mainMenu;
+    public GameObject leaderBoard;
     public GameObject gameScene;
     public float xSpawnRange = 6.5f;
     public TextMeshProUGUI gameOverText;
@@ -26,9 +27,9 @@ public class GameManager : MonoBehaviour
     private float ySpawn = 0.77f;
     private float zSpawn = -7.96f;
     private float zEnemySpawn = 24;
-    private float startDelay = 1;
-    private float enemySpawnTime = 1;
-    private bool gameIsActive;
+    public float startDelay = 1;
+    public float enemySpawnTime = 1;
+    public bool gameIsActive;
 
     // Variable for timer score
     private int time;
@@ -126,7 +127,7 @@ public class GameManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
     }
 
-    void resetScore()
+    public void resetScore()
     {
         scoreText.text = "Score: " + score;
     }
