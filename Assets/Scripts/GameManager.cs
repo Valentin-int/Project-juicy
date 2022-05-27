@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour
             scoreTab[i] = highScore;
             if (highScore > 0)
             {
-                highScoreText.text = highScoreText.text + (i + 1).ToString() + ": " + highScore;
+                highScoreText.text = highScoreText.text + (i + 1).ToString() + ": " + highScore + "\n";
             }
         }
     }
