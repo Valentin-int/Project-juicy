@@ -5,12 +5,14 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class GameManager : MonoBehaviour
 {
     // Variable of class
     public GameObject[] enemies;
     public GameObject player;
     public GameObject mainMenu;
+    public GameObject leaderBoard;
     public GameObject gameScene;
     public float xSpawnRange = 6.5f;
     public TextMeshProUGUI gameOverText;
@@ -26,14 +28,19 @@ public class GameManager : MonoBehaviour
     private float ySpawn = 0.77f;
     private float zSpawn = -7.96f;
     private float zEnemySpawn = 24;
-    private float startDelay = 1;
-    private float enemySpawnTime = 1;
-    private bool gameIsActive;
+    public float startDelay = 1;
+    public float enemySpawnTime = 1;
+    public bool gameIsActive;
 
     // Variable for timer score
     private int time;
     public float scoreTimerInterval = 5f;
     private float tick;
+
+    public TextMeshProUGUI highScoreText;
+    private string scoreKey = "Score";
+    private int highScore = 0;
+    private int[] scoreArray = new int[5];
 
     private void Awake()
     {
@@ -44,7 +51,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ZPlayerPrefs.Initialize("banana", "sgrfesg6gs5634ze67ze87reythgf3d4fs354687rg");
+        ShowSave();
     }
 
     // Update is called once per frame
@@ -96,6 +104,7 @@ public class GameManager : MonoBehaviour
             mainMenuButton.gameObject.SetActive(true);
             gameOverText.gameObject.SetActive(true);
             gameIsActive = false;
+            SaveScores();
         }
     }
 
@@ -120,8 +129,35 @@ public class GameManager : MonoBehaviour
         scoreText.gameObject.SetActive(true);
     }
 
-    void resetScore()
+    public void resetScore()
     {
         scoreText.text = "Score: " + score;
+    }
+
+    void SaveScores()
+    {
+        for (int i = 0; i < scoreArray.Length; i++)
+        {
+            if (score > scoreArray[i])
+            {
+                scoreKey = "Score" + (i + 1).ToString();
+                ZPlayerPrefs.SetInt(scoreKey, score);
+                break;
+            }
+        }
+    }
+
+    void ShowSave()
+    {
+        for (int i = 0; i < scoreArray.Length; i++)
+        {
+            scoreKey = "Score" + (i + 1).ToString();
+            highScore = ZPlayerPrefs.GetInt(scoreKey, 0);
+            scoreArray[i] = highScore;
+            if (highScore > 0)
+            {
+                highScoreText.text = highScoreText.text + (i + 1).ToString() + ": " + highScore + "\n";
+            }
+        }
     }
 }
