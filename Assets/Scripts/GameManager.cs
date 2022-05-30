@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ZPlayerPrefs.Initialize("banana", "sgrfesg6gs5634ze67ze87reythgf3d4fs354687rg");
         ShowSave();
     }
 
@@ -139,7 +140,7 @@ public class GameManager : MonoBehaviour
             if (score > scoreTab[i])
             {
                 scoreKey = "Score" + (i + 1).ToString();
-                PlayerPrefs.SetInt(scoreKey, score);
+                ZPlayerPrefs.SetInt(scoreKey, score);
                 break;
             }
         }
@@ -150,7 +151,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < scoreTab.Length; i++)
         {
             scoreKey = "Score" + (i + 1).ToString();
-            highScore = PlayerPrefs.GetInt(scoreKey, 0);
+            highScore = ZPlayerPrefs.GetInt(scoreKey, 0);
             scoreTab[i] = highScore;
             if (highScore > 0)
             {
