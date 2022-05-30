@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class GameManager : MonoBehaviour
 {
     // Variable of class
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI highScoreText;
     private string scoreKey = "Score";
     private int highScore = 0;
-    private int[] scoreTab = new int[5];
+    private int[] scoreArray = new int[5];
 
     private void Awake()
     {
@@ -135,9 +136,9 @@ public class GameManager : MonoBehaviour
 
     void SaveScores()
     {
-        for (int i = 0; i < scoreTab.Length; i++)
+        for (int i = 0; i < scoreArray.Length; i++)
         {
-            if (score > scoreTab[i])
+            if (score > scoreArray[i])
             {
                 scoreKey = "Score" + (i + 1).ToString();
                 ZPlayerPrefs.SetInt(scoreKey, score);
@@ -148,11 +149,11 @@ public class GameManager : MonoBehaviour
 
     void ShowSave()
     {
-        for (int i = 0; i < scoreTab.Length; i++)
+        for (int i = 0; i < scoreArray.Length; i++)
         {
             scoreKey = "Score" + (i + 1).ToString();
             highScore = ZPlayerPrefs.GetInt(scoreKey, 0);
-            scoreTab[i] = highScore;
+            scoreArray[i] = highScore;
             if (highScore > 0)
             {
                 highScoreText.text = highScoreText.text + (i + 1).ToString() + ": " + highScore + "\n";
