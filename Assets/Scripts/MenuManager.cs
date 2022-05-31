@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MenuManager : MonoBehaviour
 {
@@ -20,5 +21,10 @@ public class MenuManager : MonoBehaviour
     {
         mainMenu.gameObject.SetActive(true);
         leaderBoard.gameObject.SetActive(false);
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

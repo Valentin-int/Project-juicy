@@ -15,11 +15,8 @@ public class DifficultyController : MonoBehaviour
     // Start is called before the first frame update
     public void UpdatedDifficulty()
     {
-        if (gameManager.time == gameManager.tick && gameManager.gameIsActive)
-        {
             speedPrefabs *= 1.1f;
             gameManager.score *= scoreMultiplier;
             Debug.Log("La difficulté augmente");
-        }
     }
 }

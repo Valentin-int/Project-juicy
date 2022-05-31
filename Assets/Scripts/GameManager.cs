@@ -36,23 +36,13 @@ public class GameManager : MonoBehaviour
     // Variable for timer score
     public int time;
     public float scoreTimerInterval = 5f;
-    public float difficultyTimerInterval = 30f;
     public float tick;
-    public float difficultyTick;
 
     // Variable for leader board
     public TextMeshProUGUI highScoreText;
     private string scoreKey = "Score";
     private int highScore = 0;
     private int[] scoreArray = new int[5];
-
-    // Initialisation of time in time variable
-    private void Awake()
-    {
-        time = (int)Time.timeSinceLevelLoad;
-        tick = scoreTimerInterval;
-        difficultyTick = difficultyTimerInterval;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -64,10 +54,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time = (int)Time.timeSinceLevelLoad;
-        UpdatedScore();
-        GameOver();
-        scoreText.text = "Score: " + score;
+        if (gameIsActive)
+        {
+            time = (int)Time.timeSinceLevelLoad;
+            UpdatedScore();
+            GameOver();
+            scoreText.text = "Score: " + score;
+        }
     }
 
     // Method for enemies spawn
@@ -98,11 +91,6 @@ public class GameManager : MonoBehaviour
         resetScore();
     }
 
-    public void MainMenu()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
     public void GameOver()
     {
         if (playerController.gameOver)
@@ -117,17 +105,11 @@ public class GameManager : MonoBehaviour
 
     public void UpdatedScore()
     {
-        Debug.Log(time);
         if (time == tick && gameIsActive)
         {
+            Debug.Log("foila");
             tick = time + scoreTimerInterval;
             score += moreScore;
-            resetScore();
-        }
-
-        if (time == difficultyTick && gameIsActive)
-        {
-            difficultyTick = time + difficultyTimerInterval;
             difficultyController.UpdatedDifficulty();
             resetScore();
         }
@@ -135,6 +117,8 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        time = (int)Time.timeSinceLevelLoad;
+        tick = scoreTimerInterval;
         gameIsActive = true;
         resetScore();
         InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
