@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
 
     public PlayerController playerController;
+    public DifficultyController difficultyController;
 
     private float xSpawn = 0;
     private float ySpawn = 0.77f;
@@ -33,19 +34,24 @@ public class GameManager : MonoBehaviour
     public bool gameIsActive;
 
     // Variable for timer score
-    private int time;
+    public int time;
     public float scoreTimerInterval = 5f;
-    private float tick;
+    public float difficultyTimerInterval = 30f;
+    public float tick;
+    public float difficultyTick;
 
+    // Variable for leader board
     public TextMeshProUGUI highScoreText;
     private string scoreKey = "Score";
     private int highScore = 0;
     private int[] scoreArray = new int[5];
 
+    // Initialisation of time in time variable
     private void Awake()
     {
         time = (int)Time.timeSinceLevelLoad;
         tick = scoreTimerInterval;
+        difficultyTick = difficultyTimerInterval;
     }
 
     // Start is called before the first frame update
@@ -74,7 +80,8 @@ public class GameManager : MonoBehaviour
 
             Vector3 spawnPos = new Vector3(randomX, ySpawn, zEnemySpawn);
 
-            Instantiate(enemies[randomIndex], spawnPos, enemies[randomIndex].gameObject.transform.rotation);
+            GameObject enemiesPrefabs = Instantiate(enemies[randomIndex], spawnPos, enemies[randomIndex].gameObject.transform.rotation);
+            enemiesPrefabs.GetComponent<EnemyController>().speed = difficultyController.speedPrefabs;
         }
     }
 
@@ -110,10 +117,18 @@ public class GameManager : MonoBehaviour
 
     public void UpdatedScore()
     {
+        Debug.Log(time);
         if (time == tick && gameIsActive)
         {
             tick = time + scoreTimerInterval;
             score += moreScore;
+            resetScore();
+        }
+
+        if (time == difficultyTick && gameIsActive)
+        {
+            difficultyTick = time + difficultyTimerInterval;
+            difficultyController.UpdatedDifficulty();
             resetScore();
         }
     }
@@ -141,7 +156,7 @@ public class GameManager : MonoBehaviour
             if (score > scoreArray[i])
             {
                 scoreKey = "Score" + (i + 1).ToString();
-                ZPlayerPrefs.SetInt(scoreKey, score);
+                ZPlayerPrefs.GetInt(scoreKey, score);
                 break;
             }
         }
