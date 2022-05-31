@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
 
     public PlayerController playerController;
+    public DifficultyController difficultyController;
 
     private float xSpawn = 0;
     private float ySpawn = 0.77f;
@@ -33,20 +34,15 @@ public class GameManager : MonoBehaviour
     public bool gameIsActive;
 
     // Variable for timer score
-    private int time;
+    public int time;
     public float scoreTimerInterval = 5f;
-    private float tick;
+    public float tick;
 
+    // Variable for leader board
     public TextMeshProUGUI highScoreText;
     private string scoreKey = "Score";
     private int highScore = 0;
     private int[] scoreArray = new int[5];
-
-    private void Awake()
-    {
-        time = (int)Time.timeSinceLevelLoad;
-        tick = scoreTimerInterval;
-    }
 
     // Start is called before the first frame update
     void Start()
@@ -58,10 +54,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time = (int)Time.timeSinceLevelLoad;
-        UpdatedScore();
-        GameOver();
-        scoreText.text = "Score: " + score;
+        if (gameIsActive)
+        {
+            time = (int)Time.timeSinceLevelLoad;
+            UpdatedScore();
+            GameOver();
+            scoreText.text = "Score: " + score;
+        }
     }
 
     // Method for enemies spawn
@@ -74,7 +73,8 @@ public class GameManager : MonoBehaviour
 
             Vector3 spawnPos = new Vector3(randomX, ySpawn, zEnemySpawn);
 
-            Instantiate(enemies[randomIndex], spawnPos, enemies[randomIndex].gameObject.transform.rotation);
+            GameObject enemiesPrefabs = Instantiate(enemies[randomIndex], spawnPos, enemies[randomIndex].gameObject.transform.rotation);
+            enemiesPrefabs.GetComponent<EnemyController>().speed = difficultyController.speedPrefabs;
         }
     }
 
@@ -89,11 +89,6 @@ public class GameManager : MonoBehaviour
         player.gameObject.SetActive(true);
         player.transform.position = new Vector3(xSpawn, ySpawn, zSpawn);
         resetScore();
-    }
-
-    public void MainMenu()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GameOver()
@@ -112,14 +107,18 @@ public class GameManager : MonoBehaviour
     {
         if (time == tick && gameIsActive)
         {
+            Debug.Log("foila");
             tick = time + scoreTimerInterval;
             score += moreScore;
+            difficultyController.UpdatedDifficulty();
             resetScore();
         }
     }
 
     public void StartGame()
     {
+        time = (int)Time.timeSinceLevelLoad;
+        tick = scoreTimerInterval;
         gameIsActive = true;
         resetScore();
         InvokeRepeating("SpawnRandomEnemy", startDelay, enemySpawnTime);
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour
             if (score > scoreArray[i])
             {
                 scoreKey = "Score" + (i + 1).ToString();
-                ZPlayerPrefs.SetInt(scoreKey, score);
+                ZPlayerPrefs.GetInt(scoreKey, score);
                 break;
             }
         }
